@@ -4,8 +4,10 @@ import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { useCart } from "../context/cartContext";
 
 const Navbar = () => {
+  const { cart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [
@@ -18,7 +20,7 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        
+
         {/* Logo */}
         <Link
           to="/"
@@ -58,8 +60,13 @@ const Navbar = () => {
             <VscAccount />
           </Link>
 
-          <Link to="/cart" className="text-xl text-gray-700 hover:text-black">
-            <IoCartOutline />
+          <Link to="/cart" className="relative">
+            <IoCartOutline className="text-2xl" />
+            {cart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {cart.length}
+              </span>
+            )}
           </Link>
         </div>
 
